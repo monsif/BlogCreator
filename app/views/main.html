@@ -1,0 +1,71 @@
+<form name="blogForm" novalidate role="form" ng-submit="postData()">
+
+  <header>
+    <h2>Create a new blog</h2>
+
+  </header>
+
+  <div class="form-group">
+    <label>Blog Title</label>
+    <div class="form-group" ng-class="{ 'has-error' : blogForm.title.$invalid}">
+      <input  name="title" type="text" class="form-control"  ng-model="title" required ng-minlength="5">
+      <p ng-show="blogForm.title.$error.minlength" class="help-block">Title is too short.</p>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="desc" id="title3" for="Field3">
+      Date
+    </label>
+    <div>
+      <circulartimepicker id="Field3" model="blogpostdate" ng-model="blogpostdate" name="blogpostdate" format="{military:true}"></circulartimepicker>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="desc" for="imgUrl">Image URL</label>
+    <div>
+      <input id="imgUrl" name="Field1" type="text" class="form-control" value="" size="8" tabindex="1" ng-model="imgUrl">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div>
+      <h1 class="md-title">Pick your categories below</h1>
+      <div layout="row">
+        <md-input-container>
+          <label>Categorie</label>
+          <md-select ng-model="selectedPages" multiple required >
+            <p ng-show="blogForm.selectedPages.$invalid" class="help-block">Select at least one category</p>
+            <md-optgroup label="SPORTS">
+              <md-option ng-value="page.name" ng-repeat="page in pages | filter: {category: 'sports' }">{{page.name}}</md-option>
+            </md-optgroup>
+            <md-optgroup label="HIGH TECH">
+              <md-option ng-value="page.name" ng-repeat="page in pages | filter: {category: 'high-tech' }">{{page.name}}</md-option>
+            </md-optgroup>
+          </md-select>
+        </md-input-container>
+      </div>
+      <p ng-if="selectedPages">You chose to post on the following blogs :
+        {{printSelectedPages()}}.</p>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="desc" id="title4" for="Field4">
+      Message
+    </label>
+
+    <div class="form-group" ng-class="{ 'has-error' : blogForm.body.$invalid && !blogForm.body.$pristine }">
+      <textarea id="Field4" name="body" spellcheck="true" rows="10" cols="50" tabindex="4" required ng-minlength="5"  ng-model="body"></textarea>
+      <p ng-show="blogForm.body.$error.minlength" class="help-block">Post Content is too short.</p>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div>
+      <button name="submit" type="submit" class="btn btn-primary" ng-disabled="blogForm.$invalid">Submit</button>
+    </div>
+  </div>
+
+</form>
+
