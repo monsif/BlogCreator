@@ -10,11 +10,12 @@
 angular.module('posteurApp')
   .controller('MainCtrl', function ($scope, $http, $log) {
     $scope.pages = [
+      {category: 'high-tech', name: 'social'},
+      {category: 'high-tech', name: 'wordpress'},
       {category: 'high-tech', name: 'Apple'},
       {category: 'high-tech', name: 'Iphone'},
       {category: 'high-tech', name: '3D Printer'},
       {category: 'high-tech', name: 'Tesla'},
-      {category: 'high-tech', name: 'social'},
       {category: 'sports', name: 'ChampionsLeag'},
       {category: 'sports', name: 'WorldCup'},
       {category: 'sports', name: 'CupAfrica'},
@@ -40,7 +41,7 @@ angular.module('posteurApp')
     var doPost = function (subDomain, token, blogData) {
       $http({
         method: 'POST',
-        url: 'http://' + subDomain + '.talkoverflow.com/wp-json/wp/v2/pages',
+        url: 'http://' + subDomain + '.talkoverflow.com/wp-json/wp/v2/posts',
         headers: {
           'Authorization': 'Bearer ' + token
         },
@@ -58,7 +59,7 @@ angular.module('posteurApp')
     $scope.postData = function () {
       if (angular.isUndefinedOrNull($scope.blogpostdate)) {
         $scope.blogpostdate=new Date();
-        $scope.blogpostdate.setMinutes($scope.blogpostdate.getMinutes()+2);
+        $scope.blogpostdate.setMinutes($scope.blogpostdate.getMinutes()+1);
       }
       $http.get('tokens.json').then(function (data) {
         $log.info("success!");
@@ -70,7 +71,8 @@ angular.module('posteurApp')
               var dataTopost = {
                 title: $scope.title,
                 content: $scope.body,
-                date: $scope.blogpostdate
+                date: $scope.blogpostdate,
+                status:"publish"
               };
               var blogDataJson = JSON.stringify(dataTopost);
               doPost($scope.selectedPages[t], $scope.tokens[i].token, blogDataJson);
