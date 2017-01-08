@@ -48,9 +48,11 @@ angular.module('posteurApp')
         data: blogData
       }).then(function successCallback(response) {
         $log.info("OK");
+        $scope.postCreated=true;
         $log.info(response);
       }, function errorCallback(response) {
         $log.info("ohohoh");
+        $scope.postCreated=false;
         $log.info(response);
       });
 
@@ -62,7 +64,6 @@ angular.module('posteurApp')
         $scope.blogpostdate.setMinutes($scope.blogpostdate.getMinutes()+1);
       }
       $http.get('tokens.json').then(function (data) {
-        $log.info("success!");
         $scope.tokens = data.data.tokens;
         for (var i = 0; i < $scope.tokens.length; i++) {
           for (var t = 0; t < $scope.selectedPages.length; t++) {
@@ -80,6 +81,10 @@ angular.module('posteurApp')
           }
         }
       });
+    };
+
+    $scope.checkPostResponse=function(){
+      return $scope.postCreated;
     };
   });
 

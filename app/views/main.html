@@ -60,7 +60,12 @@
       <p ng-show="blogForm.body.$error.minlength" class="help-block">Post Content is too short.</p>
     </div>
   </div>
-
+  <div class="alert alert-danger" ng-show="checkPostResponse()==false">
+    <strong>Failure!</strong> AN error has occurred while posting...
+  </div>
+  <div class="alert alert-success" ng-show="checkPostResponse()==true">
+    <strong>Success!</strong> Your Post has been successfully published.
+  </div>
   <div class="form-group">
     <div>
       <button name="submit" type="submit" class="btn btn-primary" ng-disabled="blogForm.$invalid">Submit</button>
