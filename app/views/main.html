@@ -24,7 +24,7 @@
   <div class="form-group">
     <label class="desc" for="imgUrl">Image URL</label>
     <div>
-      <input id="imgUrl" name="Field1" type="text" class="form-control" value="" size="8" tabindex="1" ng-model="imgUrl">
+      <input id="imgUrl" name="imgUrl" type="text" class="form-control" value="" size="8" tabindex="1" ng-model="imgUrl">
     </div>
   </div>
 
@@ -57,6 +57,7 @@
 
     <div class="form-group" ng-class="{ 'has-error' : blogForm.body.$invalid && !blogForm.body.$pristine }">
       <textarea id="Field4" name="body" spellcheck="true" rows="10" cols="50" tabindex="4" required ng-minlength="5"  ng-model="body"></textarea>
+      <p class="help">write <code>:image</code> somewhere in textarea to insert the image from URL</p>
       <p ng-show="blogForm.body.$error.minlength" class="help-block">Post Content is too short.</p>
     </div>
     <div class="btn-group">

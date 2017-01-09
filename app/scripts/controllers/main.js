@@ -108,10 +108,14 @@ angular.module('posteurApp')
         var endPos = textComponent.selectionEnd;
         selectedText = textComponent.value.substring(startPos, endPos);
         if (selectedText) {
-          $scope.body = textComponent.value.replace(selectedText, '<' + balise + '>' + selectedText + '</' + balise + '>');
+          $scope.body = textComponent.value.replace(selectedText, '<' +balise + '>' + selectedText + '</' + balise + '>');
         }
       }
-
+        if($scope.imgUrl){
+          $scope.body=$scope.body.replace(':image','<img src="'+$scope.imgUrl+'"'+ 'alt="Post Image" >');
+        }else{
+          $scope.body=$scope.body.replace(':image','');
+        }
     };
   });
 
