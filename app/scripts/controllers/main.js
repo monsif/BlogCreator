@@ -48,11 +48,11 @@ angular.module('posteurApp')
         data: blogData
       }).then(function successCallback(response) {
         $log.info("OK");
-        $scope.postCreated=true;
+        $scope.postCreated = true;
         $log.info(response);
       }, function errorCallback(response) {
         $log.info("ohohoh");
-        $scope.postCreated=false;
+        $scope.postCreated = false;
         $log.info(response);
       });
 
@@ -60,8 +60,8 @@ angular.module('posteurApp')
 
     $scope.postData = function () {
       if (angular.isUndefinedOrNull($scope.blogpostdate)) {
-        $scope.blogpostdate=new Date();
-        $scope.blogpostdate.setMinutes($scope.blogpostdate.getMinutes()+1);
+        $scope.blogpostdate = new Date();
+        $scope.blogpostdate.setMinutes($scope.blogpostdate.getMinutes() + 1);
       }
       $http.get('tokens.json').then(function (data) {
         $scope.tokens = data.data.tokens;
@@ -73,18 +73,45 @@ angular.module('posteurApp')
                 title: $scope.title,
                 content: $scope.body,
                 date: $scope.blogpostdate,
-                status:"publish"
+                status: "publish"
               };
               var blogDataJson = JSON.stringify(dataTopost);
               doPost($scope.selectedPages[t], $scope.tokens[i].token, blogDataJson);
+            } else {
+              $scope.postCreated = false;
             }
           }
         }
       });
     };
 
-    $scope.checkPostResponse=function(){
+    $scope.checkPostResponse = function () {
       return $scope.postCreated;
+    };
+
+    $scope.showSelection = function (balise) {
+      var textComponent = document.getElementById('Field4');
+
+      var selectedText;
+      // IE version
+      if (document.selection !== undefined) {
+        textComponent.focus();
+        var sel = document.selection.createRange();
+        selectedText = sel.text;
+        if (selectedText) {
+          $scope.body = textComponent.value.replace(selectedText, '<' + balise + '>' + selectedText + '</' + balise + '>');
+        }
+      }
+      // Mozilla version
+      else if (textComponent.selectionStart !== undefined) {
+        var startPos = textComponent.selectionStart;
+        var endPos = textComponent.selectionEnd;
+        selectedText = textComponent.value.substring(startPos, endPos);
+        if (selectedText) {
+          $scope.body = textComponent.value.replace(selectedText, '<' + balise + '>' + selectedText + '</' + balise + '>');
+        }
+      }
+
     };
   });
 

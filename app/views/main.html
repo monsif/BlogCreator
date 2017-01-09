@@ -59,11 +59,23 @@
       <textarea id="Field4" name="body" spellcheck="true" rows="10" cols="50" tabindex="4" required ng-minlength="5"  ng-model="body"></textarea>
       <p ng-show="blogForm.body.$error.minlength" class="help-block">Post Content is too short.</p>
     </div>
+    <div class="btn-group">
+      <button name="submit" type="button" class="btn btn-primary" ng-click="showSelection('h1')">h1</button>
+      <button name="submit" type="button" class="btn btn-primary" ng-click="showSelection('h2')">h2</button>
+      <button name="submit" type="button" class="btn btn-primary" ng-click="showSelection('a')">a</button>
+      <button name="submit" type="button" class="btn btn-primary" ng-click="showSelection('article')">article</button>
+      <button name="submit" type="button" class="btn btn-primary" ng-click="showSelection('ol')">ol</button>
+      <button name="submit" type="button" class="btn btn-primary" ng-click="showSelection('ul')">ul</button>
+      <button name="submit" type="button" class="btn btn-primary" ng-click="showSelection('li')">li</button>
+      <button name="submit" type="button" class="btn btn-primary" ng-click="showSelection('p')">p</button>
+    </div>
   </div>
-  <div class="alert alert-danger" ng-show="checkPostResponse()==false">
+  <div class="alert alert-danger alert-dismissable" ng-show="checkPostResponse()==false">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
     <strong>Failure!</strong> AN error has occurred while posting...
   </div>
-  <div class="alert alert-success" ng-show="checkPostResponse()==true">
+  <div class="alert alert-success  alert-dismissable" ng-show="checkPostResponse()==true">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
     <strong>Success!</strong> Your Post has been successfully published.
   </div>
   <div class="form-group">
